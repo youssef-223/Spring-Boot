@@ -8,7 +8,7 @@ WORKDIR /app
 COPY src/ /app
 
 #Install the needed python libraries
-RUN pip install flask sqlalchemy
+RUN pip install -r requirements.txt
 
 #Exposing the port 
 EXPOSE 5000
