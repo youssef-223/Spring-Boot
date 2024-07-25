@@ -15,7 +15,7 @@ def read_properties(filepath):
     return properties
 
 properties = read_properties('application.properties')
-database_url = properties.get('DATABASE_URL')
+database_url = properties.get('database.url')
 
 # Set up the database connection
 engine = create_engine(database_url)
