@@ -4,7 +4,7 @@
 DB_HOST="jdbc:mysql://192.168.124.128:3306/"
 DB_USER="root"
 DB_PASS="password"
-DB_NAME="Giza-db"
+DB_NAME="giza_db"
 
 SUDO_PASSWORD=1234
 run_sudo() {
