@@ -6,9 +6,14 @@ DB_USER="root"
 DB_PASS="password"
 DB_NAME="Giza-db"
 
+SUDO_PASSWORD=1234
+run_sudo() {
+  echo $SUDO_PASSWORD | sudo -S $@
+}
+
 # Create the database
 echo "Creating database ${DB_NAME}..."
-mysql -h $DB_HOST -u $DB_USER -p$DB_PASS -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
+run_sudo mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
 
 
 echo "Database setup complete."
