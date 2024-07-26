@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define database connection details
-DB_HOST="localhost:3306"
+DB_HOST="jdbc:mysql://192.168.124.128:3306/"
 DB_USER="root"
 DB_PASS="password"
 DB_NAME="Giza-db"
