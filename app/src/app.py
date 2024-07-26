@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 # Read database configuration from application.properties
 def read_properties(filepath):
+    properties = {}
     try:
         with open(filepath, 'r') as file:
             for line in file:
