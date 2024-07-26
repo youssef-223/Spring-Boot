@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the sudo password
-SUDO_PASSWORD='1234'
+SUDO_PASSWORD='Admin@1234'
 
 # Function to run sudo command non-interactively
 run_sudo() {
