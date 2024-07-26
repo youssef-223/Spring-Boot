@@ -2,7 +2,7 @@
 
 # Define database connection details
 DB_HOST="jdbc:mysql://192.168.124.128:3306/"
-DB_NAME="giza_db"
+DB_NAME="jenkins_giza_db"
 
 SUDO_PASSWORD=1234
 
