@@ -26,8 +26,10 @@ database_password = properties.get('database.password')
 
 # Construct the database URL for SQLAlchemy
 if database_url and database_username and database_password:
+    # Adjust the URL to fit SQLAlchemy's format
     database_url = database_url.replace("jdbc:mysql://", "mysql+pymysql://")
-    database_url = database_url.replace("localhost", f"{database_username}:{database_password}@localhost")
+    # Insert username and password into the URL
+    database_url = database_url.replace("mysql+pymysql://", f"mysql+pymysql://{database_username}:{database_password}@")
 else:
     database_url = None
 
@@ -41,7 +43,6 @@ except Exception as e:
     print(f"Error creating database engine: {e}")
     engine = None
 
-
 @app.route('/check_db', methods=['GET'])
 def check_db():
     if not engine:
@@ -50,17 +51,14 @@ def check_db():
     try:
         with engine.connect() as connection:
             result = connection.execute(text("SELECT 1"))
-            # Fetch result to ensure the query executed
             result.fetchone()
         return jsonify({"message": "Database connection successful"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 @app.route('/greeting', methods=['GET'])
 def greeting():
     return "Hello"
-
 
 @app.route('/query', methods=['GET'])
 def query_db():
@@ -74,7 +72,6 @@ def query_db():
     try:
         with engine.connect() as connection:
             result = connection.execute(text(query))
-            # Fetch all results
             rows = [dict(row) for row in result.fetchall()]
         return jsonify({"data": rows}), 200
     except Exception as e:
