@@ -5,7 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 #Copy the src code directory to the app 
-COPY src/ /app
+COPY . /app
 
 #Install the needed python libraries
 RUN pip install -r requirements.txt
@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 #Run the application
-CMD ["python","app.py"]
+CMD ["python","src/app.py"]
