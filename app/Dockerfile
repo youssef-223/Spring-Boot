@@ -13,8 +13,5 @@ RUN pip install -r requirements.txt
 #Exposing the port 
 EXPOSE 5000
 
-#Set environment variable for testing
-ENV NAME World
-
 #Run the application
 CMD ["python","app.py"]
