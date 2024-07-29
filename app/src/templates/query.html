@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <title>SQL Query Interface</title>
+</head>
+<body>
+    <h1>Enter your SQL query</h1>
+    <form action="/query" method="get">
+        <textarea name="query" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Execute Query">
+    </form>
+    {% if data %}
+        <h2>Results:</h2>
+        <table border="1">
+            <tr>
+                {% for column in data[0].keys() %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+            {% for row in data %}
+                <tr>
+                    {% for item in row.values() %}
+                        <td>{{ item }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% elif error %}
+        <h2>Error:</h2>
+        <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>

@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from sqlalchemy import create_engine, text
 
 app = Flask(__name__)
@@ -60,22 +60,28 @@ def check_db():
 def greeting():
     return "Hello"
 
+@app.route('/')
+def home():
+    return render_template('query.html')
+
 @app.route('/query', methods=['GET'])
 def query_db():
-    if not engine:
-        return jsonify({"error": "Database connection is not established"}), 500
-
     query = request.args.get('query')
     if not query:
-        return jsonify({"error": "No query provided"}), 400
+        return render_template('query.html', error="No query provided")
+
+    if not engine:
+        return render_template('query.html', error="Database connection is not established")
 
     try:
         with engine.connect() as connection:
             result = connection.execute(text(query))
-            rows = [dict(row) for row in result.fetchall()]
-        return jsonify({"data": rows}), 200
+            fetched_rows = result.fetchall()
+            columns = result.keys()
+            rows = [dict(zip(columns, row)) for row in fetched_rows]
+        return render_template('query.html', data=rows)
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return render_template('query.html', error=str(e))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
